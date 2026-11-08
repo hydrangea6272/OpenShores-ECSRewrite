@@ -1,2 +1,6 @@
 # WSL executes these scripts even when the checkout lives on Windows.
 docker/**/*.sh text eol=lf
+
+# Root build entry points.
+/build.sh text eol=lf
+/build.bat text eol=crlf
