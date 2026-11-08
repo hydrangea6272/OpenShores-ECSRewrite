@@ -59,9 +59,11 @@ docker run --rm \
     --user "$(id -u):$(id -g)" \
     --env HOME=/tmp \
     --env CCACHE_DIR=/build/ccache \
+    --env CCACHE_SLOPPINESS=pch_defines,time_macros,include_file_mtime,include_file_ctime \
     --env "CMAKE_BUILD_TYPE=$cmake_build_type" \
     --env "AU_IMAGE_ID=$image_id" \
     --env "AU_TARGET=$target" \
+    --env "AU_CMAKE_ARGS=${HAZERON_CMAKE_ARGS:-}" \
     --env "AU_WORKSPACE_ROOT=$editor_workspace_root" \
     --mount "type=bind,source=$daemon_repo_root,target=/src,readonly" \
     --mount "type=volume,source=$cache_volume,target=/build" \
@@ -79,7 +81,8 @@ docker run --rm \
             -G Ninja \
             -DCMAKE_BUILD_TYPE="$CMAKE_BUILD_TYPE" \
             -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-            -DAU_OUTPUT_ROOT=/output
+            -DAU_OUTPUT_ROOT=/output \
+            $AU_CMAKE_ARGS
         cmake --build /build \
             --target "$AU_TARGET" \
             --parallel "$(nproc)"

@@ -5,6 +5,8 @@
 //-+---+---+---+---+---+---+---+---+---|---+---+---+---+---+---+-==+---+---+---|---+---+---+---+---+---+---+---+---+---+---+---+---|
 
 // File types and current versions created by Shores of Hazeron
+#pragma once
+
 #define SHIP_FILE_TYPE					0x10					// .ship spacecraft design files
 #define SHIP_FILE_VER					0x01					// .ship spacecraft design files
 

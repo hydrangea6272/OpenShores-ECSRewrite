@@ -36,6 +36,7 @@ function(au_configure_target target directory)
     au_collect_include_directories(include_directories "${directory}")
     target_link_libraries(${target} PUBLIC AuBuildSettings AuQt)
     target_include_directories(${target} PUBLIC ${include_directories})
+    au_apply_build_speed(${target} "${directory}")
 endfunction()
 
 function(au_add_static_library target directory)

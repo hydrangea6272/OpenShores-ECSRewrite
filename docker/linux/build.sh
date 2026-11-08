@@ -70,9 +70,11 @@ docker run --rm \
     --env CCACHE_DIR=/build/ccache \
     --env CCACHE_MAXSIZE=2G \
     --env CCACHE_COMPILERCHECK=content \
+    --env CCACHE_SLOPPINESS=pch_defines,time_macros,include_file_mtime,include_file_ctime \
     --env "AU_CMAKE_BUILD_TYPE=$cmake_build_type" \
     --env "AU_IMAGE_ID=$image_id" \
     --env "AU_TARGET=$target" \
+    --env "AU_CMAKE_ARGS=${HAZERON_CMAKE_ARGS:-}" \
     --env "AU_WORKSPACE_ROOT=$editor_workspace_root" \
     --mount "type=bind,source=$daemon_repo_root,target=/src,readonly" \
     --mount "type=volume,source=$cache_volume,target=/build" \
@@ -88,7 +90,8 @@ docker run --rm \
             -DCMAKE_BUILD_TYPE="$AU_CMAKE_BUILD_TYPE" \
             -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
             -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
-            -DAU_OUTPUT_ROOT=/output
+            -DAU_OUTPUT_ROOT=/output \
+            $AU_CMAKE_ARGS
         cmake --build /build \
             --target "$AU_TARGET" \
             --parallel "$(nproc)"

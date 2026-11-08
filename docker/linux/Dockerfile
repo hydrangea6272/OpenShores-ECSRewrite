@@ -14,6 +14,7 @@ RUN apt-get update \
         libqt5opengl5-dev \
         libqt5sql5-psql \
         libsdl2-dev \
+        lld \
         ninja-build \
         python3 \
         qtbase5-dev \

@@ -65,6 +65,35 @@ make win-client CONFIG=debug
 
 Output goes to `build/<platform>-<config>/`. Run clients from `bin/` and keep the runtime files beside them.
 
+## Quick build scripts and build speed
+
+`./build.sh` (Linux/WSL) and `build.bat` (Windows, runs `build.sh` through WSL)
+wrap the `make` targets above:
+
+```bash
+./build.sh                    # scene client + servers, release
+./build.sh client debug       # one target, one config
+./build.sh --unity            # unity build: about 4x faster full builds
+./build.sh --help             # every target and option
+```
+
+Most compile time goes into parsing the same large headers in every file, so
+the build has these speed options (CMake cache variables, also settable with
+`CMAKE_ARGS="-D..."` on `make`):
+
+| Option | Default | Effect |
+|---|---|---|
+| `AU_PCH` | `ON` | One shared precompiled header for Qt and std headers. |
+| `AU_UNITY_BUILD` | `OFF` | Compiles each library in batches of `AU_UNITY_BATCH_SIZE` (8) files. Much faster full builds, but a one-file change rebuilds its whole batch, so leave it off while iterating on a few files. |
+| `AU_AUTOGEN_PARALLEL` | `ON` | Lets libraries compile in parallel instead of waiting for the ones they link to. |
+| `AU_LINKER` | `auto` | Uses `mold` or `lld` when available (Linux). `default` keeps GNU ld. |
+| `AU_CCACHE` | `ON` | Uses ccache for native builds when installed. Docker builds already do. |
+
+Unity builds can't merge files that define the same file-scope names or
+define a macro differently. Those files are listed in `AU_UNITY_EXCLUDE` in
+`cmake/AuBuildSpeed.cmake` and compile on their own. After adding such a
+file, regenerate the list with `python3 tools/unity-scan.py`.
+
 ## Release packages
 
 Native macOS builds use `make mac-client` on a Mac with Qt 5.15, SDL2,

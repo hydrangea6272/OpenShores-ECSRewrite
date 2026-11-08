@@ -9,6 +9,8 @@
 //   Version-LoginVersion-SceneVersion, Date
 
 // This is the year that appears in copyright messages. e.g. Copyright 2022-? Hazeron Freehold LLC
+#pragma once
+
 const char* g_CopyrightYear = "2022";
 
 // Version is informational only. Changing the application version has no functional effect on the program.

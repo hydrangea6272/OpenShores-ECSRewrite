@@ -4,6 +4,8 @@
 // All rights reserved.
 //-+---+---+---+---+---+---+---+---+---|---+---+---+---+---+---+-==+---+---+---|---+---+---+---+---+---+---+---+---+---+---+---+---|
 
+#pragma once
+
 #include <QDataStream>
 #include <QFile>
 #include <QHash>

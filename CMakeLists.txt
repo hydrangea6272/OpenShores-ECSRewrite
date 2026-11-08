@@ -63,6 +63,7 @@ configure_file(
 )
 
 include(cmake/Dependencies.cmake)
+include(cmake/AuBuildSpeed.cmake)
 include(cmake/AuTargets.cmake)
 
 add_library(AuBuildSettings INTERFACE)

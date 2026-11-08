@@ -1,3 +1,6 @@
+# Extra CMake configure arguments for every build, e.g. CMAKE_ARGS="-DAU_UNITY_BUILD=ON".
+CMAKE_ARGS ?=
+
 DEFAULT_CACHE_VOLUMES := \
 	hazeron-linux-debug-cache \
 	hazeron-linux-release-cache \
@@ -15,6 +18,7 @@ define run_linux_build
 HAZERON_LINUX_IMAGE="$(LINUX_IMAGE)" \
 HAZERON_LINUX_CACHE_VOLUME="$(LINUX_CACHE_VOLUME)" \
 HAZERON_BUILD_CONFIG="$(CONFIG)" \
+HAZERON_CMAKE_ARGS="$(CMAKE_ARGS)" \
 	bash docker/linux/build.sh $(1)
 endef
 

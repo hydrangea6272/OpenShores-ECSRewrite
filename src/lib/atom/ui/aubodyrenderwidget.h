@@ -4,6 +4,8 @@
 // All rights reserved.
 //-+---+---+---+---+---+---+---+---+---|---+---+---+---+---+---+-==+---+---+---|---+---+---+---+---+---+---+---+---+---+---+---+---|
 
+#pragma once
+
 #include "auatom.h"
 #include "audnabase.h"
 //#include "augleffects.h"
